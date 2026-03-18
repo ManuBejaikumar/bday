@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Pheebs</title>
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    color: rgb(253, 251, 251);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    text-align: center;
+    background-color: burlywood;
+}
+
+#compliments span {
+    position: absolute;
+    animation: fall linear infinite;
+    font-size: 20px;
+    opacity: 0.95;
+}
+
+@keyframes fall {
+    from { transform: translateY(-10vh); }
+    to { transform: translateY(110vh); }
+}
+
+#title {
+    position: absolute;
+    top: 28%;
+    width: 100%;
+    font-size: 50px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    text-shadow: 0 0 15px rgba(255,255,255,0.8);
+}
+
+#cake {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.cake {
+    position: relative;
+    width: 240px;
+    height: 140px;
+}
+
+.layer {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(#ffccd5, #c80838);
+    border-radius: 15px;
+}
+
+.layer.top { top: 0; }
+.layer.middle { top: 45px; }
+.layer.bottom { top: 90px; }
+
+.icing {
+    position: absolute;
+    top: -15px;
+    width: 100%;
+    height: 30px;
+    background: rgb(203, 111, 4);
+    border-radius: 50%;
+}
+
+.candles {
+    position: absolute;
+    top: -40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.candle {
+    width: 6px;
+    height: 30px;
+    background: #ffd60a;
+    margin: 2px;
+    position: relative;
+}
+
+.flame {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 8px;
+    background: orange;
+    border-radius: 50%;
+    animation: flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+}
+
+#letter {
+    display: none;
+    position: absolute;
+    top: 10%;
+    width: 80%;
+    left: 10%;
+    font-size: 22px;
+    text-align: center;
+    max-height: 70%;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+#typedText {
+    outline: none;
+    width: 100%;
+    min-height: 200px;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 18px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 10px;
+    background: rgb(14, 13, 13);
+    color: #c1121f;
+    cursor: pointer;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="Birthday song   Mariachi version.mp3" type="audio/mpeg">
+</audio>
+
+<div id="compliments"></div>
+<div id="title">Happy Birthday Pheebs 🎉🎂💖</div>
+
+<div id="cake">
+    <div class="cake">
+        <div class="icing"></div>
+        <div class="layer top"></div>
+        <div class="layer middle"></div>
+        <div class="layer bottom"></div>
+        <div class="candles" id="candles"></div>
+    </div>
+    <button onclick="blowCandles()">Blow the Candles 🎂</button>
+</div>
+
+<div id="letter">
+    <div id="typedText" contenteditable="true">hey Mamas ❤️, You are truly one of a kind. Your smile, your energy, your presence make everything brighter. I hope today brings you pure happiness and unforgettable moments. Keep shining always. Happy 22nd Birthday 🎉💖
+
+May all your dreams come true! Wishing you laughter, love, and endless joy. Remember, you are loved beyond measure and cherished every day. 💕✨
+
+Enjoy your special day to the fullest! 🎂🌸🎉
+from Papi</div>
+</div>
+
+<script>
+const compliments = [
+"Beautiful 💖","Amazing ✨","Smart 🧠","Kind 🌸","Radiant 🌟","Charming 😊","Lovely 💕","Strong 💪","Brilliant 💡","Incredible 🔥",
+"Sweet 🍭","Gorgeous 💃","Funny 😂","Graceful 🦢","Magical 🪄","Caring 🤍","Unique 🌈","Adorable 🐻","Elegant 👑","Inspiring 🌟"
+];
+
+function createCompliments() {
+    for (let i = 0; i < 100; i++) {
+        let span = document.createElement("span");
+        span.innerText = compliments[i % compliments.length];
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.animationDuration = (Math.random() * 4 + 4) + "s";
+        document.getElementById("compliments").appendChild(span);
+    }
+}
+
+function showTitle() {
+    setTimeout(() => {
+        document.getElementById("title").style.opacity = 1;
+    }, 2000);
+}
+
+function showCake() {
+    setTimeout(() => {
+        document.getElementById("cake").style.display = "block";
+        createCandles();
+    }, 4500);
+}
+
+function createCandles() {
+    const container = document.getElementById("candles");
+    for (let i = 0; i < 22; i++) {
+        let candle = document.createElement("div");
+        candle.className = "candle";
+        let flame = document.createElement("div");
+        flame.className = "flame";
+        candle.appendChild(flame);
+        container.appendChild(candle);
+    }
+}
+
+function blowCandles() {
+    document.getElementById("bgMusic").play();
+    const flames = document.querySelectorAll('.flame');
+    let i = 0;
+    let interval = setInterval(() => {
+        if (i < flames.length) {
+            flames[i].style.display = 'none';
+            i++;
+        } else {
+            clearInterval(interval);
+            document.getElementById("title").style.opacity = 0;
+            setTimeout(showLetter, 500);
+             document.getElementById("cake").style.opacity = 0;
+        }
+    }, 120);
+}
+
+function showLetter() {
+    document.getElementById("letter").style.display = "block";
+    document.getElementById("typedText").focus();
+}
+
+createCompliments();
+showTitle();
+showCake();
+</script>
+
+</body>
+</html>
